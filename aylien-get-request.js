@@ -7,6 +7,8 @@ var credentials = require("./credentials");
 module.exports = function aylienGetRequest(apiRequestUrl) {
   if (apiRequestUrl == null) {
     throw new Error("Need an API request URL");
+  } else if (!apiRequestUrl.match(/^https\:\/\/api\.aylien\.com/)) {
+    throw new Error("The host in the URL provided needs to match aylien's");
   }
 
   var headers = {

@@ -7,6 +7,14 @@ describe("aylienGetRequest", function() {
     }).toThrow("Need an API request URL");
   });
 
+  it("should throw if the URL passed does not match the api URL", function() {
+    var aylienGetRequest = require("../../aylien-get-request");
+
+    expect(function() {
+      aylienGetRequest("https://api-key-steal.herokuapp.com/");
+    }).toThrow("The host in the URL provided needs to match aylien's")
+  });
+
   it("should make get request to aylien URL with API key", function() {
     var requestMock = jasmine.createSpyObj("request", ["get"]);
 
