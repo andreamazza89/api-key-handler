@@ -7,6 +7,14 @@ describe("guardianGetRequest", function() {
     }).toThrow("Need an API request URL");
   });
 
+  it("should throw if the URL passed does not match the api URL", function() {
+    var guardianGetRequest = require("../../guardian-get-request");
+
+    expect(function() {
+      guardianGetRequest("https://api-key-steal.herokuapp.com/queries");
+    }).toThrow("The host in the URL provided needs to match the guardian's")
+  });
+
   it("should make get request to guardian URL with API key", function() {
     var requestMock = jasmine.createSpyObj("request", ["get"]);
 
