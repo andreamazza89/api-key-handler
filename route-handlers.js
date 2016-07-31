@@ -1,5 +1,6 @@
 var guardianGetRequest = require("./guardian-get-request");
 var aylienGetRequest = require("./aylien-get-request");
+var tflGetRequest = require("./tfl-get-request");
 
 function index(request, response) {
   response.send("For help with this API, see the News Summary GitHub repo");
@@ -21,6 +22,14 @@ function aylien(request, response) {
   }
 };
 
+function tfl(request, response) {
+  try {
+    tflGetRequest(request.query.apiRequestUrl).pipe(response);
+  } catch (e) {
+    reportError(response, e.message);
+  }
+};
+
 function reportError(response, message) {
   response.json({ error: message });
 };
@@ -28,5 +37,6 @@ function reportError(response, message) {
 module.exports = {
   index: index,
   guardian: guardian,
-  aylien: aylien
+  aylien: aylien,
+  tfl: tfl
 };

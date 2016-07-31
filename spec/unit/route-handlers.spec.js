@@ -82,4 +82,37 @@ describe("routeHandlers", function() {
       expect(responseMock.json).toHaveBeenCalledWith({ error: "Error from API" });
     });
   });
+
+  describe("tfl", function() {
+    it("should pass apiRequestUrl to tflGetRequest", function() {
+      var tflGetRequestMock = jasmine.createSpy("tflGetRequest").andReturn(getRequestMock);
+
+      var routeHandlers = proxyquire("../../route-handlers", {
+        "./tfl-get-request": tflGetRequestMock
+      });
+
+      routeHandlers.tfl(requestMock, responseMock);
+      expect(tflGetRequestMock).toHaveBeenCalledWith(requestMock.apiRequestURL);
+    });
+
+    it("should pipe tfl request to response", function() {
+      var routeHandlers = proxyquire("../../route-handlers", {
+        "./tfl-get-request": jasmine.createSpy("tflGetRequest").andReturn(getRequestMock)
+      });
+
+      routeHandlers.tfl(requestMock, responseMock);
+      expect(getRequestMock.pipe).toHaveBeenCalledWith(responseMock);
+    });
+
+    it("should report error to response if something goes wrong in tfl get", function() {
+      var routeHandlers = proxyquire("../../route-handlers", {
+        "./tfl-get-request": function() {
+          throw new Error("Error from API");
+        }
+      });
+
+      routeHandlers.tfl(requestMock, responseMock);
+      expect(responseMock.json).toHaveBeenCalledWith({ error: "Error from API" });
+    });
+  });
 });
