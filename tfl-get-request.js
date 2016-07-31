@@ -10,7 +10,6 @@ module.exports = function tflGetRequest(apiRequestUrl) {
     throw new Error("Need an API request URL");
   }
 
-  var authenticatedUrl = appendQuery(apiRequestUrl, { "api_key": credentials.tfl().key, 
-                                                      "api_id": credentials.tfl().id });
+  var authenticatedUrl = appendQuery(apiRequestUrl, { "app_key": credentials.tfl().key, "app_id": credentials.tfl().id });
   return requestLib.get(authenticatedUrl);
 };
