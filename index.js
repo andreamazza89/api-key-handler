@@ -10,7 +10,7 @@ function addRoutes(app) {
   return app
     .get("/", routeHandlers.index)
     .get("/guardian", routeHandlers.guardian)
-    .get("/aylien", routeHandlers.aylien);
+    .get("/aylien", routeHandlers.aylien)
     .get("/tfl", routeHandlers.tfl);
 };
 

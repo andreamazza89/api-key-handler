@@ -7,6 +7,14 @@ describe("tflGetRequest", function() {
     }).toThrow("Need an API request URL");
   });
 
+  it("should throw if the URL passed does not match the api URL", function() {
+    var tflGetRequest = require("../../tfl-get-request");
+
+    expect(function() {
+      tflGetRequest("https://api-key-steal.herokuapp.com//StopPoint/Search/wharf?modes=tube");
+    }).toThrow("The host in the URL provided needs to match tfl's")
+  });
+
   it("should make get request to tfl URL with API key and ID", function() {
     var requestMock = jasmine.createSpyObj("request", ["get"]);
 
