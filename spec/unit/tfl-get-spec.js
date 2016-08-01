@@ -11,7 +11,7 @@ describe("tflGetRequest", function() {
     var tflGetRequest = require("../../tfl-get-request");
 
     expect(function() {
-      tflGetRequest("https://api-key-steal.herokuapp.com//StopPoint/Search/wharf?modes=tube");
+      tflGetRequest({apiRequestUrl: "https://api-key-steal.herokuapp.com//StopPoint/Search/wharf?modes=tube"});
     }).toThrow("The host in the URL provided needs to match tfl's")
   });
 
@@ -27,7 +27,7 @@ describe("tflGetRequest", function() {
       "./credentials": credentialsMock
     });
 
-    tflGetRequest("https://api.tfl.gov.uk/StopPoint/Search/wharf?modes=tube");
+    tflGetRequest({apiRequestUrl: "https://api-key-steal.herokuapp.com//StopPoint/Search/wharf?modes=tube"});
 
     expect(requestMock.get)
       .toHaveBeenCalledWith("https://api.tfl.gov.uk/StopPoint/Search/wharf?modes=tube&app_key=key&app_id=id");

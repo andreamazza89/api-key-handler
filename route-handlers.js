@@ -24,7 +24,7 @@ function aylien(request, response) {
 
 function tfl(request, response) {
   try {
-    tflGetRequest(request.query.apiRequestUrl).pipe(response);
+    tflGetRequest(request.query).pipe(response);
   } catch (e) {
     reportError(response, e.message);
   }
